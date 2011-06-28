@@ -6,15 +6,132 @@
 <description>yet another idiot who loves programming</description>
 <language>en</language>
 <copyright>Copyright 2011 ZhangYichun</copyright>
-<pubDate>Fri, 24 Jun 2011 03:01:43 GMT</pubDate>
-<lastBuildDate>Fri, 24 Jun 2011 03:01:43 GMT</lastBuildDate>
+<pubDate>Tue, 28 Jun 2011 08:02:13 GMT</pubDate>
+<lastBuildDate>Tue, 28 Jun 2011 08:02:13 GMT</lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>TiddlyWiki 2.6.2</generator>
+<item>
+<title>ErlangFileReadLineBenchmark</title>
+<description>&lt;a tiddler=&quot;ErlangFileReadLineBenchmark&quot; commandname=&quot;permalink&quot; class=&quot;button command_permalink&quot; title=&quot;Permalink for this tiddler&quot; href=&quot;javascript:;&quot;&gt;permalink&lt;/a&gt;&lt;br&gt;&lt;h1&gt; Source listing&lt;/h1&gt;&lt;h2&gt; reader.erl&lt;/h2&gt;Here's the Erlang implementation A, not using Erlang binaries:&lt;br&gt;&lt;pre&gt;-module(reader).
+-export([main/0]).
+
+main() -&amp;gt;
+    {ok, File} = file:open(&quot;data.log&quot;, [read]),
+    Lines = count_lines(File),
+    io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
+    halt().
+
+count_lines(File) -&amp;gt;
+    case file:read_line(File) of
+        {ok, _Line} -&amp;gt;
+            1 + count_lines(File);
+        eof -&amp;gt;
+            0
+    end.
+&lt;/pre&gt;&lt;h2&gt; reader-bin.erl&lt;/h2&gt;Here's the Erlang implementation B, using Erlang binaries:&lt;br&gt;&lt;pre&gt;-module(reader).
+-export([main/0]).
+
+main() -&amp;gt;
+    {ok, File} = file:open(&quot;data.log&quot;, [read, binary]),
+    Lines = count_lines(File),
+    io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
+    halt().
+
+count_lines(File) -&amp;gt;
+    case file:read_line(File) of
+        {ok, _Line} -&amp;gt;
+            1 + count_lines(File);
+        eof -&amp;gt;
+            0
+    end.
+&lt;/pre&gt;&lt;h1&gt; reader.pl&lt;/h1&gt;Here's the Perl 5 implementation:&lt;br&gt;&lt;pre&gt;open my $in, &quot;data.log&quot; or die;
+my $n;
+while (&amp;lt;$in&amp;gt;) {
+    $n++;
+}
+print &quot;Found $n lines.\n&quot;;
+&lt;/pre&gt;&lt;h1&gt; Test data file&lt;/h1&gt;The data file is from a real nginx error.log file snapshot in our production environment. Here's its basic information:&lt;br&gt;&lt;pre&gt;$ wc data.log
+    412003  12957676 197733977 data.log
+$ ls -lh data.log
+-rw-r--r-- 1 agentz users 189M 2011-06-28 15:08 data.log
+&lt;/pre&gt;&lt;h1&gt; Benchmark&lt;/h1&gt;To help OS cache the disk data, we only take the time of the programs' second runs.&lt;br&gt;&lt;h2&gt; Results on Slackware Linux x86_64&lt;/h2&gt;Linux Kernel: 2.6.33.1&lt;br&gt;CPU: Intel Core2Duo T9600&lt;br&gt;Hard disk: SATA 7200'&lt;br&gt;Erlang OTP: R14B01 (erts-5.8.2)&lt;br&gt;Perl: 5.12.1&lt;br&gt;&lt;br&gt;&lt;h3&gt; The Erlang program A compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m15.314s
+user	0m14.378s
+sys	0m0.897s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program A compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m31.797s
+user	0m30.917s
+sys	0m0.770s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m4.857s
+user	0m4.741s
+sys	0m0.110s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m4.491s
+user	0m4.378s
+sys	0m0.093s
+&lt;/pre&gt;&lt;h3&gt; The Perl 5 program&lt;/h3&gt;&lt;pre&gt;$ time perl reader.pl
+Found 412003 lines.
+
+real	0m0.332s
+user	0m0.271s
+sys	0m0.061s
+&lt;/pre&gt;&lt;h2&gt; Results on Mac OS X 10.6.7&lt;/h2&gt;CPU: Intel Core2Duo 1.86GHz&lt;br&gt;Hard disk: SSD&lt;br&gt;Erlang OTP: R14B02 (erts-5.8.3)&lt;br&gt;Perl: 5.12.3&lt;br&gt;&lt;h3&gt; The Erlang program A compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m32.437s
+user	0m27.612s
+sys	0m4.840s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program A compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m52.807s
+user	0m48.058s
+sys	0m4.726s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m7.381s
+user	0m7.131s
+sys	0m0.230s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m19.650s
+user	0m19.383s
+sys	0m0.243s
+&lt;/pre&gt;&lt;h3&gt; The Perl 5 program&lt;/h3&gt;&lt;pre&gt;$ time perl reader.pl
+Found 412003 lines.
+
+real	0m0.677s
+user	0m0.480s
+sys	0m0.182s
+&lt;/pre&gt;&lt;h1&gt; Conclusion&lt;/h1&gt;Erlang's &lt;code&gt;file:read_line/1&lt;/code&gt; is painfully slow on both Linux and Mac OS X, as of the latest version R14. It's more than one order of magnitude slower than plain Perl 5. Enabling native code generation can make the Erlang version a little faster or even about 1 time slower.&lt;br&gt;</description>
+<link>http://agentzh.org/#ErlangFileReadLineBenchmark</link>
+<pubDate>Tue, 28 Jun 2011 08:02:13 GMT</pubDate>
+
+</item>
 <item>
 <title>AboutThisSite</title>
 <description>This is site is powered by the excellent &lt;a target=&quot;_blank&quot; title=&quot;External link to http://www.tiddlywiki.com/&quot; href=&quot;http://www.tiddlywiki.com/&quot; class=&quot;externalLink&quot;&gt;TiddlyWiki&lt;/a&gt;.&lt;br&gt;&lt;br&gt;The site's source is hosted on GitHub: &lt;a target=&quot;_blank&quot; title=&quot;External link to https://github.com/agentzh/agentzh.org&quot; href=&quot;https://github.com/agentzh/agentzh.org&quot; class=&quot;externalLink&quot;&gt;https://github.com/agentzh/agentzh.org&lt;/a&gt;&lt;br&gt;</description>
 <link>http://agentzh.org/#AboutThisSite</link>
-<pubDate>Fri, 24 Jun 2011 03:01:43 GMT</pubDate>
+<pubDate>Fri, 24 Jun 2011 03:01:00 GMT</pubDate>
 
 </item>
 <item>
@@ -22,7 +139,7 @@
 <description>&lt;a tiddlylink=&quot;AboutMe&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#AboutMe&quot; href=&quot;http://agentzh.org/#AboutMe&quot; class=&quot;externalLink null&quot;&gt;About me&lt;/a&gt;&lt;br&gt;&lt;a tiddlylink=&quot;Blogs&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#Blogs&quot; href=&quot;http://agentzh.org/#Blogs&quot; class=&quot;externalLink null&quot;&gt;Blogs&lt;/a&gt;&lt;br&gt;&lt;a tiddlylink=&quot;FollowMe&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#FollowMe&quot; href=&quot;http://agentzh.org/#FollowMe&quot; class=&quot;externalLink null&quot;&gt;Follow me&lt;/a&gt;&lt;br&gt;&lt;a tiddlylink=&quot;Presentations&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#Presentations&quot; href=&quot;http://agentzh.org/#Presentations&quot; class=&quot;externalLink null&quot;&gt;Presentations&lt;/a&gt;&lt;br&gt;&lt;a tiddlylink=&quot;Projects&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#Projects&quot; href=&quot;http://agentzh.org/#Projects&quot; class=&quot;externalLink null&quot;&gt;Projects&lt;/a&gt;&lt;br&gt;&lt;a tiddlylink=&quot;ContactMe&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#ContactMe&quot; href=&quot;http://agentzh.org/#ContactMe&quot; class=&quot;externalLink null&quot;&gt;Contact me&lt;/a&gt;&lt;br&gt;&lt;a tiddlylink=&quot;AboutThisSite&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#AboutThisSite&quot; href=&quot;http://agentzh.org/#AboutThisSite&quot; class=&quot;externalLink null&quot;&gt;About this site&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;feed-icon-14x14.png&quot;&gt; &lt;a tiddlylink=&quot;RSSFeed&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#RSSFeed&quot; href=&quot;http://agentzh.org/#RSSFeed&quot; class=&quot;externalLink null&quot;&gt;RSS feed&lt;/a&gt;</description>
 <category>admin</category>
 <link>http://agentzh.org/#MainMenu</link>
-<pubDate>Fri, 24 Jun 2011 02:59:58 GMT</pubDate>
+<pubDate>Fri, 24 Jun 2011 02:59:00 GMT</pubDate>
 
 </item>
 <item>

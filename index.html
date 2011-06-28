@@ -561,6 +561,183 @@ I'm quite active in the [[nginx|http://nginx.org/mailman/listinfo/nginx]] and [[
 <div title="DefaultTiddlers" creator="ZhangYichun" modifier="ZhangYichun" created="201106140333" modified="201106200929" changecount="4">
 <pre>[[AboutMe]] [[ContactMe]]</pre>
 </div>
+<div title="ErlangFileReadLineBenchmark" creator="ZhangYichun" modifier="ZhangYichun" created="201106280715" modified="201106280802" changecount="14">
+<pre>&lt;&lt;toolbar permalink&gt;&gt;
+! Source listing
+!! reader.erl
+Here's the Erlang implementation A, not using Erlang binaries:
+{{{
+-module(reader).
+-export([main/0]).
+
+main() -&gt;
+    {ok, File} = file:open(&quot;data.log&quot;, [read]),
+    Lines = count_lines(File),
+    io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
+    halt().
+
+count_lines(File) -&gt;
+    case file:read_line(File) of
+        {ok, _Line} -&gt;
+            1 + count_lines(File);
+        eof -&gt;
+            0
+    end.
+}}}
+!! reader-bin.erl
+Here's the Erlang implementation B, using Erlang binaries:
+{{{
+-module(reader).
+-export([main/0]).
+
+main() -&gt;
+    {ok, File} = file:open(&quot;data.log&quot;, [read, binary]),
+    Lines = count_lines(File),
+    io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
+    halt().
+
+count_lines(File) -&gt;
+    case file:read_line(File) of
+        {ok, _Line} -&gt;
+            1 + count_lines(File);
+        eof -&gt;
+            0
+    end.
+}}}
+! reader.pl
+Here's the Perl 5 implementation:
+{{{
+open my $in, &quot;data.log&quot; or die;
+my $n;
+while (&lt;$in&gt;) {
+    $n++;
+}
+print &quot;Found $n lines.\n&quot;;
+}}}
+! Test data file
+The data file is from a real nginx error.log file snapshot in our production environment. Here's its basic information:
+{{{
+$ wc data.log
+    412003  12957676 197733977 data.log
+$ ls -lh data.log
+-rw-r--r-- 1 agentz users 189M 2011-06-28 15:08 data.log
+}}}
+! Benchmark
+To help OS cache the disk data, we only take the time of the programs' second runs.
+!! Results on Slackware Linux x86_64
+Linux Kernel: 2.6.33.1
+CPU: Intel ~Core2Duo T9600
+Hard disk: SATA 7200'
+Erlang OTP: ~R14B01 (erts-5.8.2)
+Perl: 5.12.1
+
+!!! The Erlang program A compiled in bytecode
+{{{
+$ erlc reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m15.314s
+user	0m14.378s
+sys	0m0.897s
+}}}
+!!! The Erlang program A compiled in native code
+{{{
+$ erlc +native reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m31.797s
+user	0m30.917s
+sys	0m0.770s
+}}}
+!!! The Erlang program B compiled in bytecode
+{{{
+$ erlc reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m4.857s
+user	0m4.741s
+sys	0m0.110s
+}}}
+!!! The Erlang program B compiled in native code
+{{{
+$ erlc +native reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m4.491s
+user	0m4.378s
+sys	0m0.093s
+}}}
+!!! The Perl 5 program
+{{{
+$ time perl reader.pl
+Found 412003 lines.
+
+real	0m0.332s
+user	0m0.271s
+sys	0m0.061s
+}}}
+!! Results on Mac OS X 10.6.7
+CPU: Intel ~Core2Duo 1.86GHz
+Hard disk: SSD
+Erlang OTP: ~R14B02 (erts-5.8.3)
+Perl: 5.12.3
+!!! The Erlang program A compiled in bytecode
+{{{
+$ erlc reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m32.437s
+user	0m27.612s
+sys	0m4.840s
+}}}
+!!! The Erlang program A compiled in native code
+{{{
+$ erlc +native reader.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m52.807s
+user	0m48.058s
+sys	0m4.726s
+}}}
+!!! The Erlang program B compiled in bytecode
+{{{
+$ erlc reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m7.381s
+user	0m7.131s
+sys	0m0.230s
+}}}
+!!! The Erlang program B compiled in native code
+{{{
+$ erlc +native reader-bin.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m19.650s
+user	0m19.383s
+sys	0m0.243s
+}}}
+!!! The Perl 5 program
+{{{
+$ time perl reader.pl
+Found 412003 lines.
+
+real	0m0.677s
+user	0m0.480s
+sys	0m0.182s
+}}}
+! Conclusion
+Erlang's {{{file:read_line/1}}} is painfully slow on both Linux and Mac OS X, as of the latest version R14. It's more than one order of magnitude slower than plain Perl 5. Enabling native code generation can make the Erlang version a little faster or even about 1 time slower.
+</pre>
+</div>
 <div title="FollowMe" creator="ZhangYichun" modifier="ZhangYichun" created="201106140434" modified="201106200922" changecount="5">
 <pre>&lt;&lt;toolbar permalink&gt;&gt;
 
