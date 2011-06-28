@@ -6,8 +6,8 @@
 <description>yet another idiot who loves programming</description>
 <language>en</language>
 <copyright>Copyright 2011 ZhangYichun</copyright>
-<pubDate>Tue, 28 Jun 2011 08:02:13 GMT</pubDate>
-<lastBuildDate>Tue, 28 Jun 2011 08:02:13 GMT</lastBuildDate>
+<pubDate>Tue, 28 Jun 2011 09:28:59 GMT</pubDate>
+<lastBuildDate>Tue, 28 Jun 2011 09:28:59 GMT</lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>TiddlyWiki 2.6.2</generator>
 <item>
@@ -17,32 +17,48 @@
 
 main() -&amp;gt;
     {ok, File} = file:open(&quot;data.log&quot;, [read]),
-    Lines = count_lines(File),
+    Lines = count_lines(File, 0),
     io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
     halt().
 
-count_lines(File) -&amp;gt;
+count_lines(File, Count) -&amp;gt;
     case file:read_line(File) of
         {ok, _Line} -&amp;gt;
-            1 + count_lines(File);
+            count_lines(File, Count + 1);
         eof -&amp;gt;
-            0
+            Count
     end.
 &lt;/pre&gt;&lt;h2&gt; reader-bin.erl&lt;/h2&gt;Here's the Erlang implementation B, using Erlang binaries:&lt;br&gt;&lt;pre&gt;-module(reader).
 -export([main/0]).
 
 main() -&amp;gt;
     {ok, File} = file:open(&quot;data.log&quot;, [read, binary]),
-    Lines = count_lines(File),
+    Lines = count_lines(File, 0),
     io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
     halt().
 
-count_lines(File) -&amp;gt;
+count_lines(File, Count) -&amp;gt;
     case file:read_line(File) of
         {ok, _Line} -&amp;gt;
-            1 + count_lines(File);
+            count_lines(File, Count + 1);
         eof -&amp;gt;
-            0
+            Count
+    end.
+&lt;/pre&gt;&lt;h2&gt; reader-bin-raw.erl&lt;/h2&gt;Here's the Erlang implementation C, using Erlang binaries, raw file mode, and big read_ahead:&lt;br&gt;&lt;pre&gt;-module(reader).
+-export([main/0]).
+
+main() -&amp;gt;
+    {ok, File} = file:open(&quot;data.log&quot;, [read, binary, raw, {read_ahead, 1024 * 1024}]),
+    Lines = count_lines(File, 0),
+    io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
+    halt().
+
+count_lines(File, Count) -&amp;gt;
+    case file:read_line(File) of
+        {ok, _Line} -&amp;gt;
+            count_lines(File, Count + 1);
+        eof -&amp;gt;
+            Count
     end.
 &lt;/pre&gt;&lt;h1&gt; reader.pl&lt;/h1&gt;Here's the Perl 5 implementation:&lt;br&gt;&lt;pre&gt;open my $in, &quot;data.log&quot; or die;
 my $n;
@@ -58,30 +74,44 @@ $ ls -lh data.log
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m15.314s
-user	0m14.378s
-sys	0m0.897s
+real	0m14.023s
+user	0m13.237s
+sys	0m0.742s
 &lt;/pre&gt;&lt;h3&gt; The Erlang program A compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m31.797s
-user	0m30.917s
-sys	0m0.770s
+real	0m14.007s
+user	0m13.233s
+sys	0m0.739s
 &lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m4.857s
-user	0m4.741s
-sys	0m0.110s
+real	0m4.451s
+user	0m4.322s
+sys	0m0.104s
 &lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m4.491s
-user	0m4.378s
-sys	0m0.093s
+real	0m4.531s
+user	0m4.417s
+sys	0m0.095s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program C compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader-bin-raw.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m10.001s
+user	0m8.520s
+sys	0m1.386s
+&lt;/pre&gt;&lt;h3&gt; The Erlang program C compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader-bin-raw.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m10.398s
+user	0m8.673s
+sys	0m1.359s
 &lt;/pre&gt;&lt;h3&gt; The Perl 5 program&lt;/h3&gt;&lt;pre&gt;$ time perl reader.pl
 Found 412003 lines.
 
@@ -92,39 +122,39 @@ sys	0m0.061s
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m32.437s
-user	0m27.612s
-sys	0m4.840s
+real	0m32.254s
+user	0m27.532s
+sys	0m4.681s
 &lt;/pre&gt;&lt;h3&gt; The Erlang program A compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m52.807s
-user	0m48.058s
-sys	0m4.726s
+real	0m32.043s
+user	0m27.356s
+sys	0m4.646s
 &lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in bytecode&lt;/h3&gt;&lt;pre&gt;$ erlc reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m7.381s
-user	0m7.131s
-sys	0m0.230s
+real	0m6.700s
+user	0m6.447s
+sys	0m0.212s
 &lt;/pre&gt;&lt;h3&gt; The Erlang program B compiled in native code&lt;/h3&gt;&lt;pre&gt;$ erlc +native reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m19.650s
-user	0m19.383s
-sys	0m0.243s
+real	0m6.721s
+user	0m6.461s
+sys	0m0.218s
 &lt;/pre&gt;&lt;h3&gt; The Perl 5 program&lt;/h3&gt;&lt;pre&gt;$ time perl reader.pl
 Found 412003 lines.
 
 real	0m0.677s
 user	0m0.480s
 sys	0m0.182s
-&lt;/pre&gt;&lt;h1&gt; Conclusion&lt;/h1&gt;Erlang's &lt;code&gt;file:read_line/1&lt;/code&gt; is painfully slow on both Linux and Mac OS X, as of the latest version R14. It's more than one order of magnitude slower than plain Perl 5. Enabling native code generation can make the Erlang version a little faster or even about 1 time slower.&lt;br&gt;</description>
+&lt;/pre&gt;&lt;h1&gt; Conclusion&lt;/h1&gt;Erlang's &lt;code&gt;file:read_line/1&lt;/code&gt; is painfully slow on both Linux and Mac OS X, as of the latest version R14. It's more than one order of magnitude slower than plain Perl 5. Enabling native code generation can make the Erlang version a little faster.&lt;br&gt;&lt;br&gt;Update: Excluding the time involved in beam startup and quit only makes the result &amp;lt;100ms faster according to my tests on the Linux box.&lt;br&gt;</description>
 <link>http://agentzh.org/#ErlangFileReadLineBenchmark</link>
-<pubDate>Tue, 28 Jun 2011 08:02:13 GMT</pubDate>
+<pubDate>Tue, 28 Jun 2011 09:28:59 GMT</pubDate>
 
 </item>
 <item>

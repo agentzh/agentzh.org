@@ -561,7 +561,7 @@ I'm quite active in the [[nginx|http://nginx.org/mailman/listinfo/nginx]] and [[
 <div title="DefaultTiddlers" creator="ZhangYichun" modifier="ZhangYichun" created="201106140333" modified="201106200929" changecount="4">
 <pre>[[AboutMe]] [[ContactMe]]</pre>
 </div>
-<div title="ErlangFileReadLineBenchmark" creator="ZhangYichun" modifier="ZhangYichun" created="201106280715" modified="201106280802" changecount="14">
+<div title="ErlangFileReadLineBenchmark" creator="ZhangYichun" modifier="ZhangYichun" created="201106280715" modified="201106280928" changecount="21">
 <pre>&lt;&lt;toolbar permalink&gt;&gt;
 ! Source listing
 !! reader.erl
@@ -572,16 +572,16 @@ Here's the Erlang implementation A, not using Erlang binaries:
 
 main() -&gt;
     {ok, File} = file:open(&quot;data.log&quot;, [read]),
-    Lines = count_lines(File),
+    Lines = count_lines(File, 0),
     io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
     halt().
 
-count_lines(File) -&gt;
+count_lines(File, Count) -&gt;
     case file:read_line(File) of
         {ok, _Line} -&gt;
-            1 + count_lines(File);
+            count_lines(File, Count + 1);
         eof -&gt;
-            0
+            Count
     end.
 }}}
 !! reader-bin.erl
@@ -592,16 +592,36 @@ Here's the Erlang implementation B, using Erlang binaries:
 
 main() -&gt;
     {ok, File} = file:open(&quot;data.log&quot;, [read, binary]),
-    Lines = count_lines(File),
+    Lines = count_lines(File, 0),
     io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
     halt().
 
-count_lines(File) -&gt;
+count_lines(File, Count) -&gt;
     case file:read_line(File) of
         {ok, _Line} -&gt;
-            1 + count_lines(File);
+            count_lines(File, Count + 1);
         eof -&gt;
-            0
+            Count
+    end.
+}}}
+!! reader-bin-raw.erl
+Here's the Erlang implementation C, using Erlang binaries, raw file mode, and big read_ahead:
+{{{
+-module(reader).
+-export([main/0]).
+
+main() -&gt;
+    {ok, File} = file:open(&quot;data.log&quot;, [read, binary, raw, {read_ahead, 1024 * 1024}]),
+    Lines = count_lines(File, 0),
+    io:format(&quot;Found ~w lines.~n&quot;, [Lines]),
+    halt().
+
+count_lines(File, Count) -&gt;
+    case file:read_line(File) of
+        {ok, _Line} -&gt;
+            count_lines(File, Count + 1);
+        eof -&gt;
+            Count
     end.
 }}}
 ! reader.pl
@@ -637,9 +657,9 @@ $ erlc reader.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m15.314s
-user	0m14.378s
-sys	0m0.897s
+real	0m14.023s
+user	0m13.237s
+sys	0m0.742s
 }}}
 !!! The Erlang program A compiled in native code
 {{{
@@ -647,9 +667,9 @@ $ erlc +native reader.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m31.797s
-user	0m30.917s
-sys	0m0.770s
+real	0m14.007s
+user	0m13.233s
+sys	0m0.739s
 }}}
 !!! The Erlang program B compiled in bytecode
 {{{
@@ -657,9 +677,9 @@ $ erlc reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m4.857s
-user	0m4.741s
-sys	0m0.110s
+real	0m4.451s
+user	0m4.322s
+sys	0m0.104s
 }}}
 !!! The Erlang program B compiled in native code
 {{{
@@ -667,9 +687,29 @@ $ erlc +native reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m4.491s
-user	0m4.378s
-sys	0m0.093s
+real	0m4.531s
+user	0m4.417s
+sys	0m0.095s
+}}}
+!!! The Erlang program C compiled in bytecode
+{{{
+$ erlc reader-bin-raw.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m10.001s
+user	0m8.520s
+sys	0m1.386s
+}}}
+!!! The Erlang program C compiled in native code
+{{{
+$ erlc +native reader-bin-raw.erl
+$ time erl -noshell -s reader main
+Found 412003 lines.
+
+real	0m10.398s
+user	0m8.673s
+sys	0m1.359s
 }}}
 !!! The Perl 5 program
 {{{
@@ -691,9 +731,9 @@ $ erlc reader.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m32.437s
-user	0m27.612s
-sys	0m4.840s
+real	0m32.254s
+user	0m27.532s
+sys	0m4.681s
 }}}
 !!! The Erlang program A compiled in native code
 {{{
@@ -701,9 +741,9 @@ $ erlc +native reader.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m52.807s
-user	0m48.058s
-sys	0m4.726s
+real	0m32.043s
+user	0m27.356s
+sys	0m4.646s
 }}}
 !!! The Erlang program B compiled in bytecode
 {{{
@@ -711,9 +751,9 @@ $ erlc reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m7.381s
-user	0m7.131s
-sys	0m0.230s
+real	0m6.700s
+user	0m6.447s
+sys	0m0.212s
 }}}
 !!! The Erlang program B compiled in native code
 {{{
@@ -721,9 +761,9 @@ $ erlc +native reader-bin.erl
 $ time erl -noshell -s reader main
 Found 412003 lines.
 
-real	0m19.650s
-user	0m19.383s
-sys	0m0.243s
+real	0m6.721s
+user	0m6.461s
+sys	0m0.218s
 }}}
 !!! The Perl 5 program
 {{{
@@ -735,7 +775,9 @@ user	0m0.480s
 sys	0m0.182s
 }}}
 ! Conclusion
-Erlang's {{{file:read_line/1}}} is painfully slow on both Linux and Mac OS X, as of the latest version R14. It's more than one order of magnitude slower than plain Perl 5. Enabling native code generation can make the Erlang version a little faster or even about 1 time slower.
+Erlang's {{{file:read_line/1}}} is painfully slow on both Linux and Mac OS X, as of the latest version R14. It's more than one order of magnitude slower than plain Perl 5. Enabling native code generation can make the Erlang version a little faster.
+
+Update: Excluding the time involved in beam startup and quit only makes the result &lt;100ms faster according to my tests on the Linux box.
 </pre>
 </div>
 <div title="FollowMe" creator="ZhangYichun" modifier="ZhangYichun" created="201106140434" modified="201106200922" changecount="5">
