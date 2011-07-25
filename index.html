@@ -55,19 +55,7 @@ DAMAGE.
 #javascriptWarning {width:100%; text-align:center; font-weight:bold; background-color:#dd1100; color:#fff; padding:1em 0em;}
 </style>
 <!--POST-HEAD-START-->
-<script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-24724974-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 <!--POST-HEAD-END-->
 </head>
 <body onload="main();" onunload="if(window.unload) unload();">
@@ -811,20 +799,24 @@ If you're interested in my opensource development work, go follow me on ~GitHub!
 [[About this site|AboutThisSite]]
 [img[feed-icon-14x14.png]] [[RSS feed|RSSFeed]]</pre>
 </div>
-<div title="MarkupPostHead" creator="ZhangYichun" modifier="ZhangYichun" created="201107240506" changecount="1">
+<div title="MarkupPostBody" creator="ZhangYichun" modifier="ZhangYichun" created="201107251537" modified="201107251537" changecount="2">
 <pre>&lt;script type=&quot;text/javascript&quot;&gt;
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-24724974-1']);
   _gaq.push(['_trackPageview']);
 
-  (function() {
+  var ga_f = function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+  };
+  setTimeout(ga_f, 200);
 
 &lt;/script&gt;</pre>
+</div>
+<div title="MarkupPostHead" creator="ZhangYichun" modifier="ZhangYichun" created="201107240506" modified="201107251537" changecount="4">
+<pre></pre>
 </div>
 <div title="Presentations" creator="ZhangYichun" modifier="ZhangYichun" created="201106170340" modified="201107110528" changecount="54">
 <pre>&lt;&lt;toolbar permalink&gt;&gt;
@@ -10458,7 +10450,20 @@ if(useJavaSaver)
 //]]>
 </script>
 <!--POST-SCRIPT-START-->
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24724974-1']);
+  _gaq.push(['_trackPageview']);
+
+  var ga_f = function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  };
+  setTimeout(ga_f, 200);
+
+</script>
 <!--POST-SCRIPT-END-->
 </body>
 </html>

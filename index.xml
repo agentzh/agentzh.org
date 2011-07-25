@@ -6,15 +6,22 @@
 <description>yet another idiot who loves programming</description>
 <language>en</language>
 <copyright>Copyright 2011 ZhangYichun</copyright>
-<pubDate>Sun, 24 Jul 2011 05:06:12 GMT</pubDate>
-<lastBuildDate>Sun, 24 Jul 2011 05:06:12 GMT</lastBuildDate>
+<pubDate>Mon, 25 Jul 2011 15:37:44 GMT</pubDate>
+<lastBuildDate>Mon, 25 Jul 2011 15:37:44 GMT</lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>TiddlyWiki 2.6.2</generator>
 <item>
+<title>MarkupPostBody</title>
+<description>&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;&lt;br&gt;&lt;br&gt;  var _gaq = _gaq || [];&lt;br&gt;  _gaq.push(['_setAccount', '&lt;a tiddlylink=&quot;UA-24724974-1&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#UA-24724974-1&quot; href=&quot;http://agentzh.org/#UA-24724974-1&quot; class=&quot;externalLink null&quot;&gt;UA-24724974-1&lt;/a&gt;']);&lt;br&gt;  _gaq.push(['_trackPageview']);&lt;br&gt;&lt;br&gt;  var ga_f = function() {&lt;br&gt;    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;&lt;br&gt;    ga.src = ('https:' == document.location.protocol ? '&lt;a target=&quot;_blank&quot; title=&quot;External link to https://ssl&quot; href=&quot;https://ssl&quot; class=&quot;externalLink&quot;&gt;https://ssl&lt;/a&gt;' : '&lt;a target=&quot;_blank&quot; title=&quot;External link to http://www&quot; href=&quot;http://www&quot; class=&quot;externalLink&quot;&gt;http://www&lt;/a&gt;') + '.google-analytics.com/ga.js';&lt;br&gt;    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);&lt;br&gt;  };&lt;br&gt;  setTimeout(ga_f, 200);&lt;br&gt;&lt;br&gt;&amp;lt;/script&amp;gt;</description>
+<link>http://agentzh.org/#MarkupPostBody</link>
+<pubDate>Mon, 25 Jul 2011 15:37:44 GMT</pubDate>
+
+</item>
+<item>
 <title>MarkupPostHead</title>
-<description>&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;&lt;br&gt;&lt;br&gt;  var _gaq = _gaq || [];&lt;br&gt;  _gaq.push(['_setAccount', '&lt;a tiddlylink=&quot;UA-24724974-1&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#UA-24724974-1&quot; href=&quot;http://agentzh.org/#UA-24724974-1&quot; class=&quot;externalLink null&quot;&gt;UA-24724974-1&lt;/a&gt;']);&lt;br&gt;  _gaq.push(['_trackPageview']);&lt;br&gt;&lt;br&gt;  (function() {&lt;br&gt;    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;&lt;br&gt;    ga.src = ('https:' == document.location.protocol ? '&lt;a target=&quot;_blank&quot; title=&quot;External link to https://ssl&quot; href=&quot;https://ssl&quot; class=&quot;externalLink&quot;&gt;https://ssl&lt;/a&gt;' : '&lt;a target=&quot;_blank&quot; title=&quot;External link to http://www&quot; href=&quot;http://www&quot; class=&quot;externalLink&quot;&gt;http://www&lt;/a&gt;') + '.google-analytics.com/ga.js';&lt;br&gt;    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);&lt;br&gt;  })();&lt;br&gt;&lt;br&gt;&amp;lt;/script&amp;gt;</description>
+<description></description>
 <link>http://agentzh.org/#MarkupPostHead</link>
-<pubDate>Sun, 24 Jul 2011 05:06:08 GMT</pubDate>
+<pubDate>Mon, 25 Jul 2011 15:37:00 GMT</pubDate>
 
 </item>
 <item>
