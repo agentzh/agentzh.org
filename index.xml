@@ -6,15 +6,22 @@
 <description>yet another idiot who loves programming</description>
 <language>en</language>
 <copyright>Copyright 2011 ZhangYichun</copyright>
-<pubDate>Mon, 25 Jul 2011 15:37:44 GMT</pubDate>
-<lastBuildDate>Mon, 25 Jul 2011 15:37:44 GMT</lastBuildDate>
+<pubDate>Wed, 16 Nov 2011 07:42:56 GMT</pubDate>
+<lastBuildDate>Wed, 16 Nov 2011 07:42:56 GMT</lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>TiddlyWiki 2.6.2</generator>
+<item>
+<title>FollowMe</title>
+<description>&lt;a tiddler=&quot;FollowMe&quot; commandname=&quot;permalink&quot; class=&quot;button command_permalink&quot; title=&quot;Permalink for this tiddler&quot; href=&quot;javascript:;&quot;&gt;permalink&lt;/a&gt;&lt;br&gt;&lt;br&gt;I'm quite active in Sina Weibo (A twitter clone very popular in China): &lt;a target=&quot;_blank&quot; title=&quot;External link to http://weibo.com/agentzh&quot; href=&quot;http://weibo.com/agentzh&quot; class=&quot;externalLink&quot;&gt;http://weibo.com/agentzh&lt;/a&gt;&lt;br&gt;&lt;br&gt;I do own a twitter account, &lt;a target=&quot;_blank&quot; title=&quot;External link to http://twitter.com/agentzh&quot; href=&quot;http://twitter.com/agentzh&quot; class=&quot;externalLink&quot;&gt;@agentzh&lt;/a&gt;.&lt;br&gt;&lt;br&gt;If you're interested in my opensource development work, go follow me on GitHub! &lt;a target=&quot;_blank&quot; title=&quot;External link to http://github.com/agentzh/&quot; href=&quot;http://github.com/agentzh/&quot; class=&quot;externalLink&quot;&gt;http://github.com/agentzh/&lt;/a&gt;</description>
+<link>http://agentzh.org/#FollowMe</link>
+<pubDate>Wed, 16 Nov 2011 07:42:53 GMT</pubDate>
+
+</item>
 <item>
 <title>MarkupPostBody</title>
 <description>&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;&lt;br&gt;&lt;br&gt;  var _gaq = _gaq || [];&lt;br&gt;  _gaq.push(['_setAccount', '&lt;a tiddlylink=&quot;UA-24724974-1&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#UA-24724974-1&quot; href=&quot;http://agentzh.org/#UA-24724974-1&quot; class=&quot;externalLink null&quot;&gt;UA-24724974-1&lt;/a&gt;']);&lt;br&gt;  _gaq.push(['_trackPageview']);&lt;br&gt;&lt;br&gt;  var ga_f = function() {&lt;br&gt;    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;&lt;br&gt;    ga.src = ('https:' == document.location.protocol ? '&lt;a target=&quot;_blank&quot; title=&quot;External link to https://ssl&quot; href=&quot;https://ssl&quot; class=&quot;externalLink&quot;&gt;https://ssl&lt;/a&gt;' : '&lt;a target=&quot;_blank&quot; title=&quot;External link to http://www&quot; href=&quot;http://www&quot; class=&quot;externalLink&quot;&gt;http://www&lt;/a&gt;') + '.google-analytics.com/ga.js';&lt;br&gt;    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);&lt;br&gt;  };&lt;br&gt;  setTimeout(ga_f, 200);&lt;br&gt;&lt;br&gt;&amp;lt;/script&amp;gt;</description>
 <link>http://agentzh.org/#MarkupPostBody</link>
-<pubDate>Mon, 25 Jul 2011 15:37:44 GMT</pubDate>
+<pubDate>Mon, 25 Jul 2011 15:37:00 GMT</pubDate>
 
 </item>
 <item>
@@ -225,13 +232,6 @@ sys	0m0.182s
 <title>ContactMe</title>
 <description>&lt;a tiddler=&quot;ContactMe&quot; commandname=&quot;permalink&quot; class=&quot;button command_permalink&quot; title=&quot;Permalink for this tiddler&quot; href=&quot;javascript:;&quot;&gt;permalink&lt;/a&gt;&lt;br&gt;&lt;br&gt;You're welcome to mail me via agentzh at gmail dot com. This mail address is also my MSN account.&lt;br&gt;&lt;br&gt;You can usually find me via IRC on #nginx, #redis, #perl6, or #openresty at irc.freenode.net.&lt;br&gt;&lt;br&gt;I'm quite active in the &lt;a target=&quot;_blank&quot; title=&quot;External link to http://nginx.org/mailman/listinfo/nginx&quot; href=&quot;http://nginx.org/mailman/listinfo/nginx&quot; class=&quot;externalLink&quot;&gt;nginx&lt;/a&gt; and &lt;a target=&quot;_blank&quot; title=&quot;External link to http://nginx.org/mailman/listinfo/nginx-devel&quot; href=&quot;http://nginx.org/mailman/listinfo/nginx-devel&quot; class=&quot;externalLink&quot;&gt;nginx-devel&lt;/a&gt; mailing lists. I'm also keeping an eye on the PerlChina, lua-l and erlang-questions mailing lists as well ;)&lt;br&gt;</description>
 <link>http://agentzh.org/#ContactMe</link>
-<pubDate>Mon, 20 Jun 2011 09:22:00 GMT</pubDate>
-
-</item>
-<item>
-<title>FollowMe</title>
-<description>&lt;a tiddler=&quot;FollowMe&quot; commandname=&quot;permalink&quot; class=&quot;button command_permalink&quot; title=&quot;Permalink for this tiddler&quot; href=&quot;javascript:;&quot;&gt;permalink&lt;/a&gt;&lt;br&gt;&lt;br&gt;I'm quite active in Sina Weibo (A twitter clone very popular in China): &lt;a target=&quot;_blank&quot; title=&quot;External link to http://weibo.com/agentzh&quot; href=&quot;http://weibo.com/agentzh&quot; class=&quot;externalLink&quot;&gt;http://weibo.com/agentzh&lt;/a&gt;&lt;br&gt;&lt;br&gt;I do own a twitter account, &lt;a target=&quot;_blank&quot; title=&quot;External link to http://twitter.com/agentzh&quot; href=&quot;http://twitter.com/agentzh&quot; class=&quot;externalLink&quot;&gt;@agentzh&lt;/a&gt;, but do not update it frequently enough due to the Great Firewall.&lt;br&gt;&lt;br&gt;If you're interested in my opensource development work, go follow me on GitHub! &lt;a target=&quot;_blank&quot; title=&quot;External link to http://github.com/agentzh/&quot; href=&quot;http://github.com/agentzh/&quot; class=&quot;externalLink&quot;&gt;http://github.com/agentzh/&lt;/a&gt;</description>
-<link>http://agentzh.org/#FollowMe</link>
 <pubDate>Mon, 20 Jun 2011 09:22:00 GMT</pubDate>
 
 </item>
