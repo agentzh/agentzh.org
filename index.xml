@@ -5,14 +5,14 @@
 <link>http://agentzh.org/</link>
 <description>yet another idiot who loves programming</description>
 <language>en</language>
-<copyright>Copyright 2012 ZhangYichun</copyright>
+<copyright>Copyright 2012 YichunZhang</copyright>
 <pubDate>Wed, 04 Jul 2012 20:02:25 GMT</pubDate>
 <lastBuildDate>Wed, 04 Jul 2012 20:02:25 GMT</lastBuildDate>
 <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <generator>TiddlyWiki 2.6.2</generator>
 <item>
 <title>AboutMe</title>
-<description>&lt;a tiddler=&quot;AboutMe&quot; commandname=&quot;permalink&quot; class=&quot;button command_permalink&quot; title=&quot;Permalink for this tiddler&quot; href=&quot;javascript:;&quot;&gt;permalink&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;img src=&quot;agentzh.jpg&quot; align=&quot;right&quot;&gt; I'm a happy programmer living in San Francisco, CA. My real name is Zhang Yichun, or 章亦春 in Chinese. I usually use the nick &lt;code&gt;agentzh&lt;/code&gt; on the web.&lt;br&gt;&lt;br&gt;I'm currently working as a systems engineer for &lt;a target=&quot;_blank&quot; title=&quot;External link to http://www.cloudflare.com&quot; href=&quot;http://www.cloudflare.com&quot; class=&quot;externalLink&quot;&gt;CloudFlare&lt;/a&gt; and my main focus is on Nginx and &lt;a tiddlylink=&quot;OpenResty&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#OpenResty&quot; href=&quot;http://agentzh.org/#OpenResty&quot; class=&quot;externalLink null&quot;&gt;OpenResty&lt;/a&gt; development.&lt;br&gt;&lt;br&gt;I used to work for &lt;a target=&quot;_blank&quot; title=&quot;External link to http://cn.yahoo.com&quot; href=&quot;http://cn.yahoo.com&quot; class=&quot;externalLink&quot;&gt;Yahoo! China&lt;/a&gt; and &lt;a target=&quot;_blank&quot; title=&quot;External link to http://www.taobao.com&quot; href=&quot;http://www.taobao.com&quot; class=&quot;externalLink&quot;&gt;Taobao, Alibaba&lt;/a&gt; while working in Beijing, China.&lt;br&gt;</description>
+<description>&lt;a tiddler=&quot;AboutMe&quot; commandname=&quot;permalink&quot; class=&quot;button command_permalink&quot; title=&quot;Permalink for this tiddler&quot; href=&quot;javascript:;&quot;&gt;permalink&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;img src=&quot;agentzh.jpg&quot; align=&quot;right&quot;&gt; I'm a happy programmer living in San Francisco, CA. My real name is Yichun Zhang, or 章亦春 in Chinese. I usually use the nick &lt;code&gt;agentzh&lt;/code&gt; on the web.&lt;br&gt;&lt;br&gt;I'm currently working as a systems engineer for &lt;a target=&quot;_blank&quot; title=&quot;External link to http://www.cloudflare.com&quot; href=&quot;http://www.cloudflare.com&quot; class=&quot;externalLink&quot;&gt;CloudFlare&lt;/a&gt; and my main focus is on Nginx and &lt;a tiddlylink=&quot;OpenResty&quot; refresh=&quot;link&quot; target=&quot;_blank&quot; title=&quot;External link to http://agentzh.org/#OpenResty&quot; href=&quot;http://agentzh.org/#OpenResty&quot; class=&quot;externalLink null&quot;&gt;OpenResty&lt;/a&gt; development.&lt;br&gt;&lt;br&gt;I used to work for &lt;a target=&quot;_blank&quot; title=&quot;External link to http://cn.yahoo.com&quot; href=&quot;http://cn.yahoo.com&quot; class=&quot;externalLink&quot;&gt;Yahoo! China&lt;/a&gt; and &lt;a target=&quot;_blank&quot; title=&quot;External link to http://www.taobao.com&quot; href=&quot;http://www.taobao.com&quot; class=&quot;externalLink&quot;&gt;Taobao, Alibaba&lt;/a&gt; while working in Beijing, China.&lt;br&gt;</description>
 <link>http://agentzh.org/#AboutMe</link>
 <pubDate>Wed, 04 Jul 2012 20:02:25 GMT</pubDate>
 
@@ -274,9 +274,9 @@ sys	0m0.182s
 
 </item>
 <item>
-<title>ZhangYichun</title>
+<title>YichunZhang</title>
 <description>The owner of this site. He loves the nick agentzh though. But please do &lt;em&gt;not&lt;/em&gt; capitalize the nick!</description>
-<link>http://agentzh.org/#ZhangYichun</link>
+<link>http://agentzh.org/#YichunZhang</link>
 <pubDate>Tue, 14 Jun 2011 04:39:00 GMT</pubDate>
 
 </item>
